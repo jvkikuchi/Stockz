@@ -8,11 +8,13 @@ function App() {
   const [newPrice, setNewPrice] = useState('')
 
   useEffect(() => {
-    storageService
-      .getAll()
-      .then(items =>{
-        setItems(items)
-      })
+    const fetchitems = async () => {
+      const data = await storageService.getAll()
+      setItems(data)
+    }
+
+    fetchitems();
+    
   }, [])
 
   const handleName = (event) => {
@@ -25,13 +27,24 @@ function App() {
     setNewPrice(event.target.value)
   }
 
-  const addItem = (event) => {
+  const addItem = async (event) => {
     event.preventDefault()
 
     const newItem = {
       name: newName, 
       price: newPrice
     }
+
+    await storageService
+      .create(newItem)
+      .then(returnedItem => {
+        setItems(items.concat(returnedItem))
+        setNewName('')
+        setNewPrice('')
+      })
+      .catch( error => {
+        console.log(error);
+      })
   }
 
   return (
@@ -45,11 +58,15 @@ function App() {
             
             {items.map((item) =>
               <Fragment key={item.id}>
+                <br></br>
+                <br></br>
+
                 <li>Item: {item.name}</li>
-                <li>Preço: {item.price}</li>
+                <li>Preço: R${item.price}</li>
                 <li>ID: {item.id}</li>
                 <li>Categoria: {item.category}</li>
                 <li>Quantidade: {item.quantity}</li>
+                <br></br>
               </Fragment>
             )}
         </ul>
