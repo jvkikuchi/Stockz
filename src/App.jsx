@@ -3,7 +3,7 @@ import storageService from './services/storage'
 import Forms from './components/Forms';
 
 function App() {
-  const[items, setItems] = useState([]);
+  const [items, setItems] = useState([]);
   const [newName, setNewName] = useState('')
   const [newPrice, setNewPrice] = useState('')
 
