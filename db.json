@@ -2,9 +2,9 @@
   "items": [
     {
       "id": 1,
-      "name": "json-server",
-      "price": 2.0,
-      "category": "teste",
+      "name": "Escova de Dente",
+      "price": 2.50,
+      "category": "Higiene",
       "quantity": 2 
     }
   ]
